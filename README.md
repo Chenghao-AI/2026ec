@@ -69,7 +69,7 @@ AD9226（12-bit, 4 MSPS，MMCM 50M→8M→2分频→4M 采样时钟，ODDR 驱�
 
 **跨芯片协作**：FPGA 按 `AA 55 | TYPE | SEQ | LEN | Payload | CRC16` 帧格式（CRC-16/CCITT-FALSE，ACK 超时自动重发 3 次）经 UART 460800-8-N-1 上传至 STM32F407；STM32 用 DMA+空闲中断+状态机解析，经 7×30 双线性校准表修正前端衰减，提取基波与整数倍谐波后驱动 TJC 串口屏分页显示时域波形与频谱柱。**从按下"开始测量"到屏幕出图全流程约 80 ms**（题目限时 2 s）。
 
-**开发流程**：Chisel（Scala）在 WSL/Linux 端编写 → Verilator 仿真（6 组功能测试 + 5 项回归）→ 生成 Verilog 同步至 Windows 端 → Vivado 综合/布局布线（0 Error、0 Warning，WNS > 150 ns）→ ILA 上板调试 → MATLAB 离线验证。
+**开发流程**：Chisel（Scala）在 WSL/Linux 端编写 → Verilator 仿真（6 组功能测试 + 5 项回归）→ 生成 Verilog 同步至 Windows 端 → Vivado 综合/布局布线（0 Error、0 Warning，全局WNS =28.172ns）→ ILA 上板调试 → MATLAB 离线验证。
 
 **实测**（5 组含干扰的合成信号）：峰峰值/真有效值误差 ≤ 2.64%，频率分量误差 ≤ 0.2 kHz，幅值误差 ≤ 5 mV，干扰识别与抑制正确。
 
