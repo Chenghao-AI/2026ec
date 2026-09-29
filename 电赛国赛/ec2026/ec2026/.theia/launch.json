@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "CCS Debug",
+            "type": "ccs-debug",
+            "request": "launch"
+        },
+        {
+            "name": "gpio_toggle_output_LP_MSPM0G3507_nortos_ticlang",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "gpio_toggle_output_LP_MSPM0G3507_nortos_ticlang",
+                "resourceId": "/gpio_toggle_output_LP_MSPM0G3507_nortos_ticlang"
+            }
+        },
+        {
+            "name": "empty_LP_MSPM0G3507_nortos_ticlang",
+            "type": "ccs-debug",
+            "request": "launch",
+            "projectInfo": {
+                "name": "empty_LP_MSPM0G3507_nortos_ticlang",
+                "resourceId": "/empty_LP_MSPM0G3507_nortos_ticlang"
+            }
+        }
+    ]
+}

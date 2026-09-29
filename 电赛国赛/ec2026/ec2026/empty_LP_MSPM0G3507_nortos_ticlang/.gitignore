@@ -1,0 +1,15 @@
+# TI Code Composer Studio build output
+/Debug/
+/Release/
+
+# Compiler and linker artifacts
+*.o
+*.obj
+*.d
+*.d_raw
+*.out
+*.map
+*.elf
+*.hex
+*.bin
+*_linkInfo.xml
