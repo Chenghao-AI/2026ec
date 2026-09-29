@@ -69,11 +69,21 @@ AD9226（12-bit, 4 MSPS，MMCM 50M→8M→2分频→4M 采样时钟，ODDR 驱�
 
 **跨芯片协作**：FPGA 按 `AA 55 | TYPE | SEQ | LEN | Payload | CRC16` 帧格式（CRC-16/CCITT-FALSE，ACK 超时自动重发 3 次）经 UART 460800-8-N-1 上传至 STM32F407；STM32 用 DMA+空闲中断+状态机解析，经 7×30 双线性校准表修正前端衰减，提取基波与整数倍谐波后驱动 TJC 串口屏分页显示时域波形与频谱柱。**从按下"开始测量"到屏幕出图全流程约 80 ms**（题目限时 2 s）。
 
-**开发流程**：Chisel（Scala）在 WSL/Linux 端编写 → Verilator 仿真（6 组功能测试 + 5 项回归）→ 生成 Verilog 同步至 Windows 端 → Vivado 综合/布局布线（0 Error、0 Warning，全局WNS =28.172ns）→ ILA 上板调试 → MATLAB 离线验证。
+**开发流程**：Verilog RTL 直接编写（Windows 端）→ Vivado 内置 xsim 仿真（5 个测试台：UART 回环、CRC-16、协议引擎、UART 发送、顶层）→ Vivado 综合/布局布线（完整时序约束，含 4 MHz 分频时钟 `create_generated_clock` 与跨时钟域 CDC 约束）→ ILA 上板调试 → MATLAB 离线验证。
+
+**时序收敛（Vivado 2019.1，XC7Z020，speed -2）**：
+
+| 时钟域                     | 频率 / 周期         | 端点数   | WNS（建立裕量） | 结果 |
+| -------------------------- | ------------------- | -------- | --------------- | ---- |
+| `clk_4m`（FFT/CORDIC/协议） | 4 MHz / 250 ns      | 68,063   | **223.640 ns**  | 0 failing |
+| `clk_out1`（UART 14.7456 MHz） | 14.7456 MHz / 67.822 ns | 307 | 63.280 ns | 0 failing |
+| 跨时钟域（CDC）同步路径    | 两域之间            | —        | 全部 ≥ 0        | 0 failing |
+
+整体 69,506 个时序端点 **0 failing、TNS = 0**，报告判定 **"All user specified timing constraints are met"**。时钟架构：50 MHz 板载时钟 → MMCM 产生 8 MHz → 翻转寄存器二分频 + BUFG 得到 4 MHz 主数据通路时钟；另有独立 clk_wiz 由 50 MHz 产生 14.7456 MHz 供 UART。协议引擎在两域之间采用"单比特握手 + 多比特数据 + 多级同步器"，CDC 路径已用 `set_false_path` 正确约束。
 
 **实测**（5 组含干扰的合成信号）：峰峰值/真有效值误差 ≤ 2.64%，频率分量误差 ≤ 0.2 kHz，幅值误差 ≤ 5 mV，干扰识别与抑制正确。
 
-**我的贡献**：独立负责 FPGA 全部数字链路——ADC 接口时序、汉宁窗流水线、FFT/CORDIC IP 集成与跨时钟域设计、帧协议引擎，以及 Chisel→Verilator→Vivado 的完整开发验证流程。
+**我的贡献**：独立负责 FPGA 全部数字链路——ADC 接口时序、汉宁窗流水线、FFT/CORDIC IP 集成与跨时钟域设计、帧协议引擎，以及 Verilog→xsim→Vivado 的完整开发验证与时序收敛流程。
 
 > 详细资料见 `电赛省赛/`：省赛设计报告 `1195_s.pdf`、G 题原文、FPGA 工程与设计文档（电赛省赛\FPGA_windows\Vivado\verliog\A0_1）。
 
@@ -121,7 +131,7 @@ AD9850 DDS（单片机发控制字程控频率）
 | 数字/信号处理 | FPGA（Zynq-7000）：ADC 时序接口、Hann 窗流水线、FFT/CORDIC IP 集成、BRAM 乒乓缓冲、跨时钟域；FFT/IFFT 频域-时域分析、幅频/相频/单位脉冲响应测量                                 |
 | 单片机        | STM32F407（HAL、DMA+空闲中断、FSMC）、TI MSPM0G3507（SysConfig、DriverLib）、矩阵键盘、ST7796/TJC 串口屏 UI                                                                     |
 | 通信协议      | 自定义帧协议设计（帧头/类型/长度/CRC16 校验/ACK 重发）、UART、SPI、I2C、可见光通信（VLC）                                                                                       |
-| 工具链        | Chisel + Verilator 仿真、Vivado（时序收敛 WNS>0、ILA 上板调试）、CCS Theia、PSpice/Multisim/Tina、MATLAB 离线验证                                                               |
+| 工具链        | Vivado（Verilog RTL、xsim 仿真、时序收敛 WNS>0、ILA 上板调试）、CCS Theia、PSpice/Multisim/Tina、MATLAB 离线验证                                                               |
 | 工程素养      | 方案论证与取舍、三级赛事报告撰写、屏幕驱动/论文/仿真等多角色协作经验                                                                                                            |
 
 ---

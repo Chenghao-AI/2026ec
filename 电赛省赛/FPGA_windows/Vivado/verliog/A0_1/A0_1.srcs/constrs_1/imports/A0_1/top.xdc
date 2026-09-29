@@ -54,6 +54,34 @@ set_property PACKAGE_PIN J16 [get_ports {led_status[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led_status[*]}]
 
 # ============================================================================
+# 4 MHz 主数据通路时钟 clk_4m
+# MMCM 8 MHz (CLKOUT0, 125 ns) 经翻转寄存器二分频 + BUFG -> 4 MHz / 250 ns
+# ============================================================================
+create_generated_clock -name clk_4m -divide_by 2 \
+    -source [get_pins u_mmcm/mmcm_inst/CLKOUT0] \
+    [get_pins u_div2/clk_div_r_reg/Q]
+
+# ============================================================================
+# 跨时钟域 (CDC) 约束
+# 协议引擎使用"握手 + 多比特数据 + 多级同步器"方式在 clk_uart(14.7456 MHz)
+# 与 clk_4m(4 MHz) 之间传输。所有进入目的域"第一级"同步/捕获寄存器的路径
+# 按 false_path 处理:单比特信号在该级允许亚稳态(由后续同步级消除),多比特
+# 数据在握手保证稳定后才被采样。各同步器的后续级仍在同一时钟域内,正常做
+# 时序分析。
+# ============================================================================
+# clk_uart -> clk_4m: 第一级同步器 / 数据捕获
+set_false_path -quiet -to [get_cells -quiet { \
+    u_proto/tx_busy_meta_reg \
+    u_proto/cmd_toggle_meta_reg \
+    u_proto/cmd_type_meta_reg[*] \
+    u_proto/cmd_seq_meta_reg[*] \
+    u_proto/cmd_mode_meta_reg[*] }]
+# clk_4m -> clk_uart: 第一级同步器 + 发送字节捕获
+set_false_path -quiet -to [get_cells -quiet { \
+    u_proto/mbox_req_meta_reg \
+    u_proto/tx_data_uart_reg[*] }]
+
+# ============================================================================
 # Debug Hub 时钟约束 - 必须! 使 hw_server 能访问 mark_debug 自动生成的 ILA
 # ============================================================================
 set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
