@@ -73,11 +73,11 @@ AD9226（12-bit, 4 MSPS，MMCM 50M→8M→2分频→4M 采样时钟，ODDR 驱�
 
 **时序收敛（Vivado 2019.1，XC7Z020，speed -2）**：
 
-| 时钟域                     | 频率 / 周期         | 端点数   | WNS（建立裕量） | 结果 |
-| -------------------------- | ------------------- | -------- | --------------- | ---- |
-| `clk_4m`（FFT/CORDIC/协议） | 4 MHz / 250 ns      | 68,063   | **223.640 ns**  | 0 failing |
-| `clk_out1`（UART 14.7456 MHz） | 14.7456 MHz / 67.822 ns | 307 | 63.280 ns | 0 failing |
-| 跨时钟域（CDC）同步路径    | 两域之间            | —        | 全部 ≥ 0        | 0 failing |
+| 时钟域                           | 频率 / 周期             | 端点数 | WNS（建立裕量）      | 结果      |
+| -------------------------------- | ----------------------- | ------ | -------------------- | --------- |
+| `clk_4m`（FFT/CORDIC/协议）    | 4 MHz / 250 ns          | 68,063 | **223.640 ns** | 0 failing |
+| `clk_out1`（UART 14.7456 MHz） | 14.7456 MHz / 67.822 ns | 307    | 63.280 ns            | 0 failing |
+| 跨时钟域（CDC）同步路径          | 两域之间                | —     | 全部 ≥ 0            | 0 failing |
 
 整体 69,506 个时序端点 **0 failing、TNS = 0**，报告判定 **"All user specified timing constraints are met"**。时钟架构：50 MHz 板载时钟 → MMCM 产生 8 MHz → 翻转寄存器二分频 + BUFG 得到 4 MHz 主数据通路时钟；另有独立 clk_wiz 由 50 MHz 产生 14.7456 MHz 供 UART。协议引擎在两域之间采用"单比特握手 + 多比特数据 + 多级同步器"，CDC 路径已用 `set_false_path` 正确约束。
 
@@ -131,7 +131,7 @@ AD9850 DDS（单片机发控制字程控频率）
 | 数字/信号处理 | FPGA（Zynq-7000）：ADC 时序接口、Hann 窗流水线、FFT/CORDIC IP 集成、BRAM 乒乓缓冲、跨时钟域；FFT/IFFT 频域-时域分析、幅频/相频/单位脉冲响应测量                                 |
 | 单片机        | STM32F407（HAL、DMA+空闲中断、FSMC）、TI MSPM0G3507（SysConfig、DriverLib）、矩阵键盘、ST7796/TJC 串口屏 UI                                                                     |
 | 通信协议      | 自定义帧协议设计（帧头/类型/长度/CRC16 校验/ACK 重发）、UART、SPI、I2C、可见光通信（VLC）                                                                                       |
-| 工具链        | Vivado（Verilog RTL、xsim 仿真、时序收敛 WNS>0、ILA 上板调试）、CCS Theia、PSpice/Multisim/Tina、MATLAB 离线验证                                                               |
+| 工具链        | Vivado（Verilog RTL、xsim 仿真、时序收敛 WNS>0、ILA 上板调试）、CCS Theia、PSpice/Multisim/Tina、MATLAB 离线验证                                                                |
 | 工程素养      | 方案论证与取舍、三级赛事报告撰写、屏幕驱动/论文/仿真等多角色协作经验                                                                                                            |
 
 ---
