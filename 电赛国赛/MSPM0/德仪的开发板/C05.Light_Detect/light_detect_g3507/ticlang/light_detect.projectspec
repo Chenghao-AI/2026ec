@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectSpec>
+    <applicability>
+        <when>
+            <context
+                deviceFamily="ARM"
+                deviceId="MSPM0G3507"
+            />
+        </when>
+    </applicability>
+
+    <project
+        title="light_detect"
+        name="light_detect"
+        configurations="Debug"
+        toolChain="TICLANG"
+        connection="TIXDS110_Connection.xml"
+        device="MSPM0G3507"
+        ignoreDefaultDeviceSettings="true"
+        ignoreDefaultCCSSettings="true"
+        products="MSPM0-SDK;sysconfig"
+        compilerBuildOptions="
+            -I${PROJECT_ROOT}
+            -I${PROJECT_ROOT}/${ConfigName}
+            -O2
+            @syscfg/device.opt
+            -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/third_party/CMSIS/Core/Include
+            -I${COM_TI_MSPM0_SDK_INSTALL_DIR}/source
+            -gdwarf-3
+            -mcpu=cortex-m0plus
+            -march=thumbv6m
+            -mfloat-abi=soft
+            -mthumb
+        "
+        linkerBuildOptions="
+            -ldevice.cmd.genlibs
+            -L${COM_TI_MSPM0_SDK_INSTALL_DIR}/source
+            -L${PROJECT_ROOT}
+            -L${PROJECT_BUILD_DIR}/syscfg
+            -Wl,--rom_model
+            -Wl,--warn_sections
+            -L${CG_TOOL_ROOT}/lib
+            -llibc.a
+        "
+        enableHexTool="true"
+        hexBuildOptions="--ti_txt"
+        enableSysConfigTool="true"
+        sysConfigBuildOptions="
+            --product ${COM_TI_MSPM0_SDK_INSTALL_DIR}/.metadata/product.json
+            --compiler ticlang
+        "
+        sourceLookupPath="${COM_TI_MSPM0_SDK_INSTALL_DIR}/source/ti/driverlib"
+        description="OPA Demo with Time Slice">
+
+        <property name="buildProfile" value="release"/>
+        <property name="isHybrid" value="true"/>
+        <file path="../hardware.c" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../hardware.h" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../i2c.h" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../light_detect.syscfg" openOnCreation="true" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../oled.c" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../oled.h" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../oledfont.h" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../printf.c" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../printf.h" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../README.md" openOnCreation="true" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../slice.c" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../softi2c.c" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../task_main.c" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../task_main.h" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../uart.c" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+        <file path="../uart.h" openOnCreation="false" excludeFromBuild="false" action="copy">
+        </file>
+    </project>
+</projectSpec>

@@ -1,0 +1,180 @@
+(ExpressProject "LM1117_N_5P0_TRANS"
+  (ProjectVersion "19981106")
+  (SoftwareVersion "23.1-2024 S001-[08/20/26]")
+  (ProjectType "Analog or A/D Mixed Mode")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File ".\lm1117_n_5p0_trans.olb"
+        (Type "Schematic Library")
+        (DisplayName ".\lm1117_n_5p0_trans.olb")))
+    (NoModify)
+    (File ".\lm1117_n_5p0_trans.DSN"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (RootChangedForceReNetlist "x")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE")
+    (PSPICE_DoNot_Show_WarningDlg "TRUE")
+    (DOCKED "TRUE")
+    (DOCKING_POSITION "59420"))
+  (Folder "Layout")
+  (Folder "Outputs"
+    (File
+       ".\lm1117_n_5p0_trans-pspicefiles\lm1117_n_5p0_startup\lm1117_n_5p0_startup.net"
+      (Type "Report")))
+  (Folder "PSpice Resources"
+    (Folder "Simulation Profiles"
+      (ActiveProfile
+         ".\lm1117_n_5p0_trans-pspicefiles\lm1117_n_5p0_startup\tran.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\lm1117_n_5p0_trans-pspicefiles\lm1117_n_5p0_startup\tran.sim"
+        (DisplayName "LM1117_N_5P0_STARTUP-tran")
+        (Type "PSpice Profile")))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User))
+    (Folder "Model Libraries"
+      (Sort User)
+      (File ".\lm1117_n_5p0_trans.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\lm1117_n_5p0_trans.lib"))))
+  (DefaultLibraryBrowseDirectory "library\PSpice")
+  (PartMRUSelector
+    (LM1117_N_5P0_TRANS
+      (FullPartName "LM1117_N_5P0_TRANS.Normal")
+      (LibraryName
+         "C:\USERS\X0211415\DESKTOP\DHANRAJ\NEW COPIES OF LM1117\LM1117_N_5P0\RELEASE_KARMIC\PSPICE\LM1117_N_5P0_PSPICE_TRANS\LM1117_N_5P0_TRANS.OLB")
+      (DeviceIndex "0"))
+    (0
+      (LibraryName "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (IDC
+      (FullPartName "IDC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.0\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (TLV73311P_TRANS
+      (FullPartName "TLV73311P_TRANS.Normal")
+      (LibraryName
+         "E:\PSPICE\TLV73311P\ACTIVE_WORK_KARMIC\PSPICE\TLV73311P_PSPICE_TRANS\TLV73311P_TRANS.OLB")
+      (DeviceIndex "0"))
+    (TLV73311P
+      (FullPartName "TLV73311P.Normal")
+      (LibraryName
+         "E:\PSPICE\TLV73311P\ACTIVE_WORK_KARMIC\PSPICE\TLV73311P_PSPICE_TRANS\TLV73311P_TRANS.OLB")
+      (DeviceIndex "0"))
+    (S
+      (FullPartName "S.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\DEMO\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (VDC
+      (FullPartName "VDC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (GAIN
+      (FullPartName "GAIN.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\DEMO\ABM.OLB")
+      (DeviceIndex "0"))
+    (VPULSE
+      (FullPartName "VPULSE.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.0\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (TLV73315P_TRANS
+      (FullPartName "TLV73315P_TRANS.Normal")
+      (LibraryName
+         "E:\WEBENCH_DESIGN\TLV73315P\ACTIVE_WORK_KARMIC\PSPICE\TLV73315P_PSPICE_TRANS\TLV73315P_TRANS.OLB")
+      (DeviceIndex "0"))
+    (ETABLE
+      (FullPartName "ETABLE.Normal")
+      (LibraryName "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ABM.OLB")
+      (DeviceIndex "0"))
+    (TLV70711P_TRANS
+      (FullPartName "TLV70711P_TRANS.Normal")
+      (LibraryName
+         "E:\WEBENCH_DESIGN\TLV70711P\ACTIVE_WORK_KARMIC\PSPICE\TLV70711P_PSPICE_TRANS\TLV70711P_TRANS.OLB")
+      (DeviceIndex "0"))
+    (D_D
+      (FullPartName "D_D.Normal")
+      (LibraryName "E:\INTERNALLIBRARIES\ALL_OLB'S\DIODES.OLB")
+      (DeviceIndex "0"))
+    (BUF_ABM
+      (FullPartName "BUF_ABM.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\DIG_ABM.OLB")
+      (DeviceIndex "0"))
+    (TLV707335_TRANS
+      (FullPartName "TLV707335_TRANS.Normal")
+      (LibraryName
+         "E:\WEBENCH_DESIGN\TLV707335\ACTIVE_WORK_KARMIC\PSPICE\TLV707335_PSPICE_TRANS\TLV707335_TRANS.OLB")
+      (DeviceIndex "0"))
+    (D_D1
+      (FullPartName "D_D1.Normal")
+      (LibraryName "E:\D DRIVE\INTERNALLIBRARIES\SB0204_DIODES\DIODES.OLB")
+      (DeviceIndex "0"))
+    (ABM
+      (FullPartName "ABM.Normal")
+      (LibraryName "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ABM.OLB")
+      (DeviceIndex "0"))
+    (C
+      (FullPartName "C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (TPS79301_TRANS
+      (FullPartName "TPS79301_TRANS.Normal")
+      (LibraryName
+         "D:\LDO\TPS79301\ACTIVE_WORK_KARMIC\PSPICE\TPS79301_PSPICE_TRANS\TPS79301_TRANS.OLB")
+      (DeviceIndex "0"))
+    (IPULSE
+      (FullPartName "IPULSE.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (PARAM
+      (FullPartName "PARAM.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.0\TOOLS\CAPTURE\LIBRARY\PSPICE\SPECIAL.OLB")
+      (DeviceIndex "0"))
+    (COMPHYS_BASIC_GEN
+      (FullPartName "COMPHYS_BASIC_GEN.Normal")
+      (LibraryName
+         "C:\PSPICE_SUBBLK_LIB_DS\PSPICE_SUBBLK_LIB\PSPICE_SUBBLK_LIB\SB02_SUBBLOCKBASIC\SB0102_COMPARATORS\COMPARATOR_GEN.OLB")
+      (DeviceIndex "0"))
+    (ABM2
+      (FullPartName "ABM2.Normal")
+      (LibraryName "C:\CADENCE\SPB_16.0\TOOLS\CAPTURE\LIBRARY\PSPICE\ABM.OLB")
+      (DeviceIndex "0"))
+    (ABM1
+      (FullPartName "ABM1.Normal")
+      (LibraryName "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ABM.OLB")
+      (DeviceIndex "0")))
+  (MPSSessionName "24307")
+  (LastUsedLibraryBrowseDirectory
+     "C:\Users\x0211415\Desktop\dhanraj\new copies of lm1117\LM1117_N_5P0\Release_KarMic\PSPICE\LM1117_N_5P0_PSPICE_TRANS")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources"
+         "C:\Users\24307\Desktop\project_2024\LM117_5V\lm1117_n_5p0_trans.DSN")
+      (Path "Design Resources"
+         "C:\Users\24307\Desktop\project_2024\LM117_5V\lm1117_n_5p0_trans.DSN"
+         "LM1117_N_5P0_STARTUP")
+      (Path "Outputs")
+      (Select "Design Resources"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 0 0 0 200 0 340"))
+      (Tab 0)))
+  (Folder "Logs"))

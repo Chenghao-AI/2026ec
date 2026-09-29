@@ -1,0 +1,91 @@
+*$ 
+* OP07
+****************************************************************************
+* (C) Copyright 2025 Texas Instruments Incorporated. All rights reserved.                                            
+****************************************************************************
+** This model is designed as an aid for customers of Texas Instruments.
+** TI and its licensors and suppliers make no warranties, either expressed
+** or implied, with respect to this model, including the warranties of 
+** merchantability or fitness for a particular purpose.  The model is
+** provided solely on an "as is" basis.  The entire risk as to its quality
+** and performance is with the customer
+****************************************************************************
+*
+* This model is subject to change without notice. Texas Instruments
+* Incorporated is not responsible for updating this model.
+*
+****************************************************************************
+*
+** Released by: Online Design Tools, Texas Instruments Inc.
+* Part: OP07
+* Date: 10NOV2025
+* EVM Order Number: N/A 
+* EVM Users Guide:  N/A 
+* Datasheet: SLOS099H – SEPTEMBER 1983 – REVISED MARCH 2023
+* 
+*
+* Model Version: Final 1.2
+*
+*****************************************************************************
+*
+* Updates:
+*
+* Final 1.2
+* 1. Updated model to match the latest PCN 20231031008.1 
+*        GBW = 1.4MHz
+*        UGF = 1.2MHz
+*        PM  = 60-deg (58.4 deg)
+*        ZO  = 42 Ohms at 1MHz
+*
+* Final 1.1
+* 1. Updated PSpice Symbol.
+* 2. Added .ENDS name as OP07.
+*
+* Final 1.0
+* Release to Web.
+* 
+*****************************************************************************
+* Model Usage Notes:
+* 1. Model file is updated with latest header.
+*****************************************************************************
+* CONNECTIONS:   NON-INVERTING INPUT
+*                | INVERTING INPUT
+*                | | POSITIVE POWER SUPPLY
+*                | | | NEGATIVE POWER SUPPLY
+*                | | | | OUTPUT
+*                | | | | |
+.SUBCKT OP07    1 2 3 4 5
+*****************************************************************************
+C1   11 12 4.5E-12
+C2    6  7 12.50E-12
+DC    5 53 DX
+DE   54  5 DX
+DLP  90 91 DX
+DLN  92 90 DX
+DP    4  3 DX
+EGND 99  0 POLY(2) (3,0) (4,0) 0 .5 .5
+FB    7 99 POLY(5) VB VC VE VLP VLN 0 147.3E6 -100E6 100E6 100E6 -100E6
+GA    6  0 11 12 113.1E-6
+GCM   0  6 10 99 56.69E-12
+IEE  10  4 DC 7.501E-6
+HLIM 90  0 VLIM 1K
+Q1   11  2 13 QX
+Q2   12  1 14 QX
+R2    6  9 100.0E3
+RC1   3 11 8.841E3
+RC2   3 12 8.841E3
+RE1  13 10 1.943E3
+RE2  14 10 1.943E3
+REE  10 99 26.66E6
+RO1   8  5 42
+RO2   7 99 42
+RP    3  4 12.04E3
+VB    9  0 DC 0
+VC    3 53 DC 2.900
+VE   54  4 DC 2.900
+VLIM  7  8 DC 0
+VLP  91  0 DC 20
+VLN   0 92 DC 20
+.MODEL DX D(IS=800.0E-18)
+.MODEL QX NPN(IS=800.0E-18 BF=5.357E3)
+.ENDS OP07

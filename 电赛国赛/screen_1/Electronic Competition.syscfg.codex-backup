@@ -1,0 +1,106 @@
+/**
+ * MSP-LITO-G3507-EVM hardware configuration
+ *
+ * LCD: LCDWIKI 4.0-inch ST7796S, write-only SPI
+ * Keypad: passive 4x4 matrix keyboard
+ */
+/**
+ * @cliArgs --device "MSPM0G350X" --part "Default" --package "LQFP-64(PM)" --product "mspm0_sdk@2.11.00.07"
+ * @v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)" --product "mspm0_sdk@2.11.00.07"
+ * @versions {"tool":"1.26.2+4477"}
+ */
+
+const GPIO        = scripting.addModule("/ti/driverlib/GPIO", {}, false);
+const LCD_CTRL    = GPIO.addInstance();
+const KEYPAD_COLS = GPIO.addInstance();
+const KEYPAD_ROWS = GPIO.addInstance();
+const SPI         = scripting.addModule("/ti/driverlib/SPI", {}, false);
+const SPI_LCD     = SPI.addInstance();
+const SYSCTL      = scripting.addModule("/ti/driverlib/SYSCTL");
+const Board       = scripting.addModule("/ti/driverlib/Board", {}, false);
+
+/* ST7796S control pins. CS is software-controlled for precise transfers. */
+LCD_CTRL.$name = "LCD_CTRL";
+LCD_CTRL.port  = "PORTB";
+LCD_CTRL.associatedPins.create(3);
+
+LCD_CTRL.associatedPins[0].$name        = "CS";
+LCD_CTRL.associatedPins[0].initialValue = "SET";
+LCD_CTRL.associatedPins[0].pin.$assign  = "PB6";
+
+LCD_CTRL.associatedPins[1].$name        = "DC";
+LCD_CTRL.associatedPins[1].initialValue = "SET";
+LCD_CTRL.associatedPins[1].pin.$assign  = "PB15";
+
+LCD_CTRL.associatedPins[2].$name        = "RESET";
+LCD_CTRL.associatedPins[2].initialValue = "SET";
+LCD_CTRL.associatedPins[2].pin.$assign  = "PB16";
+
+/* Keypad pins 1..4: column outputs, idle HIGH. */
+KEYPAD_COLS.$name = "KEYPAD_COLS";
+KEYPAD_COLS.port  = "PORTA";
+KEYPAD_COLS.associatedPins.create(4);
+
+KEYPAD_COLS.associatedPins[0].$name        = "COL1";
+KEYPAD_COLS.associatedPins[0].initialValue = "SET";
+KEYPAD_COLS.associatedPins[0].pin.$assign  = "PA8";
+
+KEYPAD_COLS.associatedPins[1].$name        = "COL2";
+KEYPAD_COLS.associatedPins[1].initialValue = "SET";
+KEYPAD_COLS.associatedPins[1].pin.$assign  = "PA9";
+
+KEYPAD_COLS.associatedPins[2].$name        = "COL3";
+KEYPAD_COLS.associatedPins[2].initialValue = "SET";
+KEYPAD_COLS.associatedPins[2].pin.$assign  = "PA12";
+
+KEYPAD_COLS.associatedPins[3].$name        = "COL4";
+KEYPAD_COLS.associatedPins[3].initialValue = "SET";
+KEYPAD_COLS.associatedPins[3].pin.$assign  = "PA13";
+
+/* Keypad pins 8..5: top-to-bottom row inputs with internal pull-ups. */
+KEYPAD_ROWS.$name = "KEYPAD_ROWS";
+KEYPAD_ROWS.port  = "PORTA";
+KEYPAD_ROWS.associatedPins.create(4);
+
+KEYPAD_ROWS.associatedPins[0].$name            = "ROW1";
+KEYPAD_ROWS.associatedPins[0].direction        = "INPUT";
+KEYPAD_ROWS.associatedPins[0].internalResistor = "PULL_UP";
+KEYPAD_ROWS.associatedPins[0].pin.$assign      = "PA17";
+
+KEYPAD_ROWS.associatedPins[1].$name            = "ROW2";
+KEYPAD_ROWS.associatedPins[1].direction        = "INPUT";
+KEYPAD_ROWS.associatedPins[1].internalResistor = "PULL_UP";
+KEYPAD_ROWS.associatedPins[1].pin.$assign      = "PA16";
+
+KEYPAD_ROWS.associatedPins[2].$name            = "ROW3";
+KEYPAD_ROWS.associatedPins[2].direction        = "INPUT";
+KEYPAD_ROWS.associatedPins[2].internalResistor = "PULL_UP";
+KEYPAD_ROWS.associatedPins[2].pin.$assign      = "PA15";
+
+KEYPAD_ROWS.associatedPins[3].$name            = "ROW4";
+KEYPAD_ROWS.associatedPins[3].direction        = "INPUT";
+KEYPAD_ROWS.associatedPins[3].internalResistor = "PULL_UP";
+KEYPAD_ROWS.associatedPins[3].pin.$assign      = "PA14";
+
+/* SPI1: controller, Mode 0, transmit-only, software CS, initial 4 MHz. */
+SPI_LCD.$name                      = "SPI_LCD";
+SPI_LCD.mode                       = "CONTROLLER";
+SPI_LCD.frameFormat                = "MOTO3";
+SPI_LCD.polarity                   = "0";
+SPI_LCD.phase                      = "0";
+SPI_LCD.direction                  = "PICO";
+SPI_LCD.dataSize                   = 8;
+SPI_LCD.bitOrder                   = "MSB";
+SPI_LCD.targetBitRate              = 4000000;
+SPI_LCD.chipSelect                 = [];
+SPI_LCD.spiClkSrc                  = "BUSCLK";
+SPI_LCD.peripheral.$assign         = "SPI1";
+SPI_LCD.peripheral.sclkPin.$assign = "PB9";
+SPI_LCD.peripheral.mosiPin.$assign = "PB8";
+
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn           = true;
+
+Board.peripheral.$suggestSolution          = "DEBUGSS";
+Board.peripheral.swclkPin.$suggestSolution = "PA20";
+Board.peripheral.swdioPin.$suggestSolution = "PA19";

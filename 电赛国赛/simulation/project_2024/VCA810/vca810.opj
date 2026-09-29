@@ -1,0 +1,91 @@
+(ExpressProject "VCA810"
+  (ProjectVersion "19981106")
+  (SoftwareVersion "23.1-2024 S001-[08/19/26]")
+  (ProjectType "Analog or A/D Mixed Mode")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File ".\library\vca810.olb"
+        (Type "Schematic Library")
+        (DisplayName ".\library\vca810.olb")))
+    ("Allegro Netlist Directory" "allegro")
+    (DOCKED "TRUE")
+    (DOCKING_POSITION "59419")
+    (NoModify)
+    (File ".\vca810.DSN"
+      (Type "Schematic Design")
+      (DisplayName ".\vca810.DSN"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE"))
+  (Folder "Layout")
+  (Folder "Outputs"
+    (File ".\vca810-PSpiceFiles\SCHEMATIC1\schematic1.net"
+      (Type "Report")
+      (DisplayName ".\vca810-PSpiceFiles\SCHEMATIC1\schematic1.net")))
+  (Folder "PSpice Resources"
+    (Folder "Simulation Profiles"
+      (ActiveProfile ".\vca810-pspicefiles\schematic1\transientanalysis.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\vca810-pspicefiles\schematic1\transientanalysis.sim"
+        (DisplayName "SCHEMATIC1-TransientAnalysis")
+        (Type "PSpice Profile")))
+    (Folder "Model Libraries"
+      (Sort User)
+      (File ".\VCA810.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\VCA810.lib")))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User)))
+  (DefaultLibraryBrowseDirectory "library\PSpice")
+  (Folder "Logs")
+  (PartMRUSelector
+    (VSIN
+      (FullPartName "VSIN.Normal")
+      (LibraryName
+         "C:\CADENCE\PSPICETI\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (0
+      (LibraryName
+         "C:\CADENCE\PSPICETI\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (VDC
+      (FullPartName "VDC.Normal")
+      (LibraryName
+         "C:\CADENCE\PSPICETI\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (VCA810
+      (FullPartName "VCA810.Normal")
+      (LibraryName "C:\USERS\A0232073\DOWNLOADS\VCA810\VCA810.OLB")
+      (DeviceIndex "0"))
+    (VCA810/BB
+      (FullPartName "VCA810/BB.Normal")
+      (LibraryName "C:\USERS\A0232073\DOWNLOADS\VCA810\VCA810.OLB")
+      (DeviceIndex "0")))
+  (MPSSessionName "24307")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\vca810.DSN")
+      (Path "Design Resources" ".\vca810.DSN" "SCHEMATIC1")
+      (Path "Design Resources" ".\vca810.DSN" "Design Cache")
+      (Path "Design Resources" "Library")
+      (Path "Outputs")
+      (Select "Design Resources"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 0 367 0 654"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 888 28 700")
+        (Scroll "-8 -10")
+        (Zoom "86")
+        (Occurrence "/"))
+      (Path "C:\USERS\24307\DESKTOP\PROJECT_2024\VCA810\VCA810.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1"))))

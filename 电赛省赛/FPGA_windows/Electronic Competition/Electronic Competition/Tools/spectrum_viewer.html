@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STM32 频率-幅值数组查看器</title>
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, "Microsoft YaHei", sans-serif; }
+    body { max-width: 1180px; margin: 0 auto; padding: 18px; background: Canvas; color: CanvasText; }
+    h1 { font-size: 21px; margin: 0 0 12px; font-weight: 600; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-bottom: 14px; }
+    .field { display: grid; gap: 4px; font-size: 13px; }
+    input, button { font: inherit; }
+    input[type="number"] { width: 110px; padding: 5px 7px; }
+    input[type="file"] { max-width: 320px; }
+    button { padding: 6px 12px; cursor: pointer; }
+    button:disabled { cursor: default; opacity: .55; }
+    #drop { border: 1px dashed GrayText; padding: 12px; margin-bottom: 14px; text-align: center; }
+    #drop.drag { outline: 2px solid Highlight; }
+    #status { margin: 8px 0 14px; font-size: 13px; white-space: pre-wrap; }
+    .summary { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 12px; font-size: 13px; }
+    .summary strong { font-variant-numeric: tabular-nums; }
+    .chart-wrap { position: relative; margin: 8px 0 20px; }
+    canvas { width: 100%; height: 300px; display: block; border-bottom: 1px solid GrayText; }
+    #rawChart { height: 260px; }
+    .tooltip { position: absolute; pointer-events: none; display: none; padding: 7px 9px; border: 1px solid GrayText; background: Canvas; color: CanvasText; font-size: 12px; line-height: 1.5; white-space: nowrap; z-index: 2; }
+    .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; margin: 4px 0; }
+    .key::before { content: ""; display: inline-block; width: 12px; height: 3px; margin-right: 5px; vertical-align: middle; background: var(--c); }
+    .note { font-size: 12px; color: GrayText; }
+  </style>
+</head>
+<body>
+  <h1>STM32 频率-幅值数组查看器</h1>
+  <div id="drop">将 <code>spectrum_snapshot.bin</code> 拖到这里，或在下方选择文件</div>
+  <div class="toolbar">
+    <label class="field">频谱快照<input id="file" type="file" accept=".bin,application/octet-stream"></label>
+    <label class="field">峰值阈值 / mV<input id="threshold" type="number" min="0" step="0.1" value="3.0"></label>
+    <label class="field">峰最小距离 / Hz<input id="distance" type="number" min="0" step="500" value="10000"></label>
+    <label class="field">谐波容差 / Hz<input id="tolerance" type="number" min="0" step="100" value="3000"></label>
+    <button id="csv" type="button" disabled>导出 CSV</button>
+  </div>
+  <div id="status">尚未加载快照。</div>
+  <div class="summary" id="summary"></div>
+
+  <div class="legend">
+    <span class="key" style="--c:#2f78c4">ADC原始值</span>
+    <span class="key" style="--c:#d17a22">AD8307输出电压</span>
+  </div>
+  <div class="chart-wrap"><canvas id="rawChart"></canvas><div class="tooltip"></div></div>
+
+  <div class="legend">
+    <span class="key" style="--c:#2f9d63">固件换算幅值</span>
+    <span class="key" style="--c:#d04040">候选峰（圆）</span>
+    <span class="key" style="--c:#8b55c5">基波/谐波（菱形）</span>
+  </div>
+  <div class="chart-wrap"><canvas id="ampChart"></canvas><div class="tooltip"></div></div>
+  <div class="note">电脑端复现当前 Spectrum.c：最左候选峰会按“最强上升沿→首个峰顶→相邻原始最大值”精修基频，再选取整数倍 ±3 kHz 内的前两个谐波。</div>
+
+<script>
+(() => {
+  'use strict';
+  const RECORD_BYTES = 20;
+  const EXPECTED_POINTS = 1201;
+  const MAX_CANDIDATES = 12;
+  const LO_STEP_HZ = 500;
+  const BASE_REFINE_WINDOW_HZ = 10000;
+  const BASE_RISE_SPAN_POINTS = 4;
+  const BASE_FALL_CONFIRM_POINTS = 4;
+  const BASE_RAW_RADIUS_POINTS = 1;
+  const BASE_MIN_RISE_MV = 1.0;
+  const BASE_FALL_TOLERANCE_MV = 0.20;
+  const BASE_RAW_PLATEAU_TOLERANCE_MV = 0.10;
+  let points = [];
+  let analysis = { candidates: [], selected: [] };
+
+  const fileInput = document.getElementById('file');
+  const drop = document.getElementById('drop');
+  const status = document.getElementById('status');
+  const summary = document.getElementById('summary');
+  const csvButton = document.getElementById('csv');
+  const controls = ['threshold', 'distance', 'tolerance'].map(id => document.getElementById(id));
+
+  function parseSnapshot(buffer) {
+    if (buffer.byteLength % RECORD_BYTES !== 0) throw new Error(`文件长度 ${buffer.byteLength} 不是 ${RECORD_BYTES} 字节的整数倍`);
+    const count = buffer.byteLength / RECORD_BYTES;
+    const view = new DataView(buffer);
+    const out = [];
+    for (let i = 0; i < count; i++) {
+      const o = i * RECORD_BYTES;
+      out.push({
+        index: i,
+        lo: view.getUint32(o, true),
+        frequency: view.getUint32(o + 4, true),
+        adc: view.getUint16(o + 8, true),
+        voltage: view.getFloat32(o + 12, true),
+        amplitude: view.getFloat32(o + 16, true)
+      });
+    }
+    return out;
+  }
+
+  const diff = (a, b) => Math.abs(a - b);
+  function smooth(i) {
+    if (i === 0 || i >= points.length - 1) return points[i].amplitude;
+    return (points[i - 1].amplitude + points[i].amplitude + points[i + 1].amplitude) / 3;
+  }
+  function harmonicOrder(base, candidate, tolerance) {
+    if (base < 10000 || candidate <= base) return 0;
+    const order = Math.floor((candidate + base / 2) / base);
+    if (order < 2) return 0;
+    return diff(candidate, order * base) <= tolerance ? order : 0;
+  }
+
+  function refineFirstPeak(seed) {
+    const windowPoints = Math.floor(BASE_REFINE_WINDOW_HZ / LO_STEP_HZ);
+    if (!seed || seed.index <= BASE_RISE_SPAN_POINTS ||
+        points.length <= BASE_FALL_CONFIRM_POINTS + 1) return seed;
+
+    const leftIndex = seed.index > windowPoints ? seed.index - windowPoints : 1;
+    const riseSearchStart = leftIndex + BASE_RISE_SPAN_POINTS;
+    const riseSearchEnd = Math.min(
+      seed.index,
+      points.length - 1 - BASE_FALL_CONFIRM_POINTS
+    );
+    if (riseSearchStart > riseSearchEnd) return seed;
+
+    let bestRise = 0;
+    let riseIndex = -1;
+    for (let i = riseSearchStart; i <= riseSearchEnd; i++) {
+      const rise = smooth(i) - smooth(i - BASE_RISE_SPAN_POINTS);
+      if (rise > bestRise) {
+        bestRise = rise;
+        riseIndex = i;
+      }
+    }
+    if (riseIndex < 0 || bestRise < BASE_MIN_RISE_MV) return seed;
+
+    let crestIndex = -1;
+    for (let i = riseIndex; i <= riseSearchEnd; i++) {
+      const previous = smooth(i - 1);
+      const current = smooth(i);
+      const next = smooth(i + 1);
+      const confirmed = smooth(i + BASE_FALL_CONFIRM_POINTS);
+      if (current > previous && current >= next &&
+          confirmed <= current + BASE_FALL_TOLERANCE_MV) {
+        crestIndex = i;
+        break;
+      }
+    }
+    if (crestIndex < 0) return seed;
+
+    const rawStart = Math.max(0, crestIndex - BASE_RAW_RADIUS_POINTS);
+    const rawEnd = Math.min(points.length - 1, crestIndex + BASE_RAW_RADIUS_POINTS);
+    let rawMax = points[rawStart].amplitude;
+    for (let i = rawStart + 1; i <= rawEnd; i++) {
+      if (points[i].amplitude > rawMax) rawMax = points[i].amplitude;
+    }
+    let refinedIndex = rawStart;
+    for (let i = rawStart; i <= rawEnd; i++) {
+      if (points[i].amplitude >= rawMax - BASE_RAW_PLATEAU_TOLERANCE_MV) {
+        refinedIndex = i;
+        break;
+      }
+    }
+    return points[refinedIndex];
+  }
+
+  function analyze() {
+    const threshold = Number(controls[0].value) || 0;
+    const minDistance = Number(controls[1].value) || 0;
+    const tolerance = Number(controls[2].value) || 0;
+    const candidates = [];
+
+    for (let i = 1; i < points.length - 1; i++) {
+      const p = points[i];
+      if (p.frequency < 10000 || p.frequency > 500000) continue;
+      const prev = smooth(i - 1), current = smooth(i), next = smooth(i + 1);
+      if (!(current > prev && current >= next) || current < threshold) continue;
+      const peak = { ...p };
+      const mergedAt = candidates.findIndex(x => diff(x.frequency, peak.frequency) < minDistance);
+      if (mergedAt >= 0) {
+        if (peak.amplitude > candidates[mergedAt].amplitude) candidates[mergedAt] = peak;
+      } else {
+        let insertAt = candidates.findIndex(x => peak.amplitude > x.amplitude);
+        if (insertAt < 0) insertAt = candidates.length;
+        if (!(candidates.length >= MAX_CANDIDATES && insertAt >= MAX_CANDIDATES)) {
+          candidates.splice(insertAt, 0, peak);
+          if (candidates.length > MAX_CANDIDATES) candidates.length = MAX_CANDIDATES;
+        }
+      }
+    }
+
+    const orderedCandidates = [...candidates].sort((a, b) => a.frequency - b.frequency);
+    const selected = [];
+    if (orderedCandidates.length) {
+      selected.push(refineFirstPeak(orderedCandidates[0]));
+      for (let i = 1; i < orderedCandidates.length && selected.length < 3; i++) {
+        const p = orderedCandidates[i];
+        if (harmonicOrder(selected[0].frequency, p.frequency, tolerance)) selected.push(p);
+      }
+    }
+    analysis = { candidates, selected };
+  }
+
+  function chart(canvas, mode) {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    const W = rect.width, H = rect.height, pad = { l: 58, r: mode === 'raw' ? 58 : 18, t: 12, b: 35 };
+    const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b;
+    ctx.clearRect(0, 0, W, H);
+    if (!points.length) return;
+    const xs = points.map(p => p.frequency / 1000);
+    const xmin = Math.min(...xs), xmax = Math.max(...xs);
+    const primary = mode === 'raw' ? points.map(p => p.adc) : points.map(p => p.amplitude);
+    const ymax = Math.max(1, ...primary) * 1.08;
+    const vmax = Math.max(0.1, ...points.map(p => p.voltage)) * 1.08;
+    const x = f => pad.l + ((f / 1000 - xmin) / (xmax - xmin || 1)) * pw;
+    const y = v => pad.t + ph - (v / ymax) * ph;
+    const yv = v => pad.t + ph - (v / vmax) * ph;
+
+    ctx.font = '12px system-ui'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(127,127,127,.25)'; ctx.fillStyle = 'GrayText';
+    for (let i = 0; i <= 5; i++) {
+      const yy = pad.t + ph * i / 5;
+      ctx.beginPath(); ctx.moveTo(pad.l, yy); ctx.lineTo(W - pad.r, yy); ctx.stroke();
+      const val = ymax * (1 - i / 5);
+      ctx.fillText(mode === 'raw' ? val.toFixed(0) : val.toFixed(1), 5, yy + 4);
+      if (mode === 'raw') ctx.fillText((vmax * (1 - i / 5)).toFixed(2) + 'V', W - pad.r + 7, yy + 4);
+    }
+    for (let i = 0; i <= 6; i++) {
+      const xx = pad.l + pw * i / 6, val = xmin + (xmax - xmin) * i / 6;
+      ctx.fillText(val.toFixed(0), xx - 13, H - 12);
+    }
+    ctx.fillText('输入频率 / kHz', pad.l + pw / 2 - 38, H - 1);
+
+    function line(values, mapY, color) {
+      ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.beginPath();
+      points.forEach((p, i) => { const xx = x(p.frequency), yy = mapY(values[i]); i ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); });
+      ctx.stroke();
+    }
+    if (mode === 'raw') {
+      line(points.map(p => p.adc), y, '#2f78c4');
+      line(points.map(p => p.voltage), yv, '#d17a22');
+    } else {
+      line(points.map(p => p.amplitude), y, '#2f9d63');
+      ctx.fillStyle = '#d04040';
+      analysis.candidates.forEach(p => { ctx.beginPath(); ctx.arc(x(p.frequency), y(p.amplitude), 4, 0, Math.PI * 2); ctx.fill(); });
+      ctx.fillStyle = '#8b55c5';
+      analysis.selected.forEach(p => {
+        const xx = x(p.frequency), yy = y(p.amplitude), s = 6;
+        ctx.beginPath(); ctx.moveTo(xx, yy - s); ctx.lineTo(xx + s, yy); ctx.lineTo(xx, yy + s); ctx.lineTo(xx - s, yy); ctx.closePath(); ctx.fill();
+      });
+    }
+    canvas._plot = { pad, pw, ph, xmin, xmax };
+  }
+
+  function pointAt(canvas, clientX) {
+    const r = canvas.getBoundingClientRect(), p = canvas._plot;
+    if (!p || clientX < r.left + p.pad.l || clientX > r.left + p.pad.l + p.pw) return null;
+    const ratio = (clientX - r.left - p.pad.l) / p.pw;
+    const freq = (p.xmin + ratio * (p.xmax - p.xmin)) * 1000;
+    return points.reduce((best, x) => !best || diff(x.frequency, freq) < diff(best.frequency, freq) ? x : best, null);
+  }
+
+  function attachTooltip(canvas) {
+    const tip = canvas.parentElement.querySelector('.tooltip');
+    canvas.addEventListener('mousemove', e => {
+      const p = pointAt(canvas, e.clientX);
+      if (!p) { tip.style.display = 'none'; return; }
+      tip.innerHTML = `点 ${p.index}<br>输入 ${(p.frequency/1000).toFixed(3)} kHz<br>LO ${(p.lo/1e6).toFixed(6)} MHz<br>ADC ${p.adc}<br>AD8307 ${p.voltage.toFixed(4)} V<br>幅值 ${p.amplitude.toFixed(3)} mV`;
+      tip.style.display = 'block';
+      const wrap = canvas.parentElement.getBoundingClientRect();
+      const left = Math.min(e.clientX - wrap.left + 12, wrap.width - tip.offsetWidth - 4);
+      tip.style.left = Math.max(4, left) + 'px'; tip.style.top = '8px';
+    });
+    canvas.addEventListener('mouseleave', () => tip.style.display = 'none');
+  }
+
+  function render() {
+    if (!points.length) return;
+    analyze();
+    chart(document.getElementById('rawChart'), 'raw');
+    chart(document.getElementById('ampChart'), 'amp');
+    const selectedText = analysis.selected.length ? analysis.selected.map((p, i) => `${i ? 'H' + i : 'F0'} ${(p.frequency/1000).toFixed(1)} kHz / ${p.amplitude.toFixed(2)} mV`).join('；') : '未形成整数倍谐波组';
+    summary.innerHTML = `<span>点数 <strong>${points.length}</strong></span><span>候选峰 <strong>${analysis.candidates.length}</strong></span><span>识别结果 <strong>${selectedText}</strong></span>`;
+  }
+
+  async function loadFile(file) {
+    try {
+      points = parseSnapshot(await file.arrayBuffer());
+      const warning = points.length === EXPECTED_POINTS ? '' : `（注意：当前固件预期 ${EXPECTED_POINTS} 点）`;
+      status.textContent = `已加载 ${file.name}：${points.length} 点，${file.size} 字节 ${warning}`;
+      csvButton.disabled = false;
+      render();
+    } catch (e) {
+      points = []; csvButton.disabled = true; summary.textContent = '';
+      status.textContent = `无法解析：${e.message}`;
+    }
+  }
+
+  fileInput.addEventListener('change', () => fileInput.files[0] && loadFile(fileInput.files[0]));
+  controls.forEach(c => c.addEventListener('input', render));
+  window.addEventListener('resize', render);
+  ['dragenter', 'dragover'].forEach(name => drop.addEventListener(name, e => { e.preventDefault(); drop.classList.add('drag'); }));
+  ['dragleave', 'drop'].forEach(name => drop.addEventListener(name, e => { e.preventDefault(); drop.classList.remove('drag'); }));
+  drop.addEventListener('drop', e => e.dataTransfer.files[0] && loadFile(e.dataTransfer.files[0]));
+  csvButton.addEventListener('click', () => {
+    const rows = ['index,lo_frequency_hz,input_frequency_hz,adc_raw,detector_voltage_v,amplitude_mv'];
+    points.forEach(p => rows.push(`${p.index},${p.lo},${p.frequency},${p.adc},${p.voltage},${p.amplitude}`));
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([rows.join('\r\n')], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'spectrum_snapshot.csv'; a.click(); URL.revokeObjectURL(a.href);
+  });
+  attachTooltip(document.getElementById('rawChart'));
+  attachTooltip(document.getElementById('ampChart'));
+  chart(document.getElementById('rawChart'), 'raw');
+  chart(document.getElementById('ampChart'), 'amp');
+})();
+</script>
+</body>
+</html>

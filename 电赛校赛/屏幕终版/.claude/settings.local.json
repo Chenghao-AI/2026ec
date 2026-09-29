@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdftotext -layout \"2026 复旦大学电子设计竞赛B题-简易频谱分析仪.pdf\" -)",
+      "Bash(pdftotext -raw \"2026 复旦大学电子设计竞赛B题-简易频谱分析仪.pdf\" -)"
+    ]
+  }
+}

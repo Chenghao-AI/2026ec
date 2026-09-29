@@ -1,0 +1,30 @@
+================================================================
+  FFT Spectrum Analysis Report (ILA based)
+================================================================
+
+Generated: 31-Jul-2026 05:30:26
+
+[System]
+  Sampling fs : 4000000 Hz
+  FFT points N: 8192
+  Resolution Δf: 488.2812 Hz
+
+[Frequency]
+  Target       : 200000.00 Hz
+  Peak bin     : 408
+  Peak mag     : 582
+  Measured f   : 197579.5201 Hz
+  Frequency err: 2420.4799 Hz
+  Frequency PASS (<100 Hz): NO
+
+[Amplitude]
+  ADC range: [8, 4085] counts, P2P=4077
+  Target   : 500 mVpp
+  Measured : 499.63 mVpp
+  Amplitude err: 0.3676 mV
+  Amplitude PASS (<5 mV): YES
+
+[Overall]
+  Frequency FAIL, Amplitude PASS -> Overall: FAIL
+
+Calibration: User-stated 500 mVpp -> 4080 ADC counts (0.1225 mV/count)

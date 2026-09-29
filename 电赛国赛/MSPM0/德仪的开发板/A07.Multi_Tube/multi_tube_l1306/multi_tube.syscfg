@@ -1,0 +1,100 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "MSPM0L130X" --package "VQFN-32(RHB)" --part "Default" --product "mspm0_sdk@1.20.01.06"
+ * @versions {"tool":"1.18.0+3266"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const GPIO   = scripting.addModule("/ti/driverlib/GPIO", {}, false);
+const GPIO1  = GPIO.addInstance();
+const GPIO2  = GPIO.addInstance();
+const GPIO3  = GPIO.addInstance();
+const GPIO4  = GPIO.addInstance();
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const TIMER  = scripting.addModule("/ti/driverlib/TIMER", {}, false);
+const TIMER1 = TIMER.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+GPIO1.$name                         = "GPIO_LEDS";
+GPIO1.port                          = "PORTA";
+GPIO1.associatedPins[0].$name       = "USER_LED_1";
+GPIO1.associatedPins[0].assignedPin = "0";
+
+const Board = scripting.addModule("/ti/driverlib/Board", {}, false);
+
+GPIO2.$name                                 = "GPIO_KEYS";
+GPIO2.associatedPins[0].$name               = "KEY1";
+GPIO2.associatedPins[0].direction           = "INPUT";
+GPIO2.associatedPins[0].assignedPortSegment = "Lower";
+GPIO2.associatedPins[0].internalResistor    = "PULL_UP";
+GPIO2.associatedPins[0].pin.$assign         = "PA14";
+
+GPIO3.$name                              = "TUBE";
+GPIO3.associatedPins.create(8);
+GPIO3.associatedPins[0].$name            = "PIN_DP";
+GPIO3.associatedPins[0].internalResistor = "PULL_UP";
+GPIO3.associatedPins[0].initialValue     = "SET";
+GPIO3.associatedPins[0].pin.$assign      = "PA2";
+GPIO3.associatedPins[1].$name            = "PIN_G";
+GPIO3.associatedPins[1].initialValue     = "SET";
+GPIO3.associatedPins[1].internalResistor = "PULL_UP";
+GPIO3.associatedPins[1].pin.$assign      = "PA3";
+GPIO3.associatedPins[2].$name            = "PIN_F";
+GPIO3.associatedPins[2].initialValue     = "SET";
+GPIO3.associatedPins[2].internalResistor = "PULL_UP";
+GPIO3.associatedPins[2].pin.$assign      = "PA4";
+GPIO3.associatedPins[3].$name            = "PIN_E";
+GPIO3.associatedPins[3].initialValue     = "SET";
+GPIO3.associatedPins[3].internalResistor = "PULL_UP";
+GPIO3.associatedPins[3].pin.$assign      = "PA5";
+GPIO3.associatedPins[4].$name            = "PIN_D";
+GPIO3.associatedPins[4].initialValue     = "SET";
+GPIO3.associatedPins[4].internalResistor = "PULL_UP";
+GPIO3.associatedPins[4].pin.$assign      = "PA6";
+GPIO3.associatedPins[5].$name            = "PIN_C";
+GPIO3.associatedPins[5].initialValue     = "SET";
+GPIO3.associatedPins[5].internalResistor = "PULL_UP";
+GPIO3.associatedPins[5].pin.$assign      = "PA7";
+GPIO3.associatedPins[6].$name            = "PIN_B";
+GPIO3.associatedPins[6].initialValue     = "SET";
+GPIO3.associatedPins[6].internalResistor = "PULL_UP";
+GPIO3.associatedPins[6].pin.$assign      = "PA8";
+GPIO3.associatedPins[7].$name            = "PIN_A";
+GPIO3.associatedPins[7].initialValue     = "SET";
+GPIO3.associatedPins[7].internalResistor = "PULL_UP";
+GPIO3.associatedPins[7].pin.$assign      = "PA9";
+
+GPIO4.$name                         = "TUBE_B";
+GPIO4.associatedPins.create(4);
+GPIO4.associatedPins[0].$name       = "PIN_0";
+GPIO4.associatedPins[0].pin.$assign = "PA10";
+GPIO4.associatedPins[1].$name       = "PIN_1";
+GPIO4.associatedPins[1].pin.$assign = "PA11";
+GPIO4.associatedPins[2].$name       = "PIN_2";
+GPIO4.associatedPins[2].pin.$assign = "PA12";
+GPIO4.associatedPins[3].$name       = "PIN_3";
+GPIO4.associatedPins[3].pin.$assign = "PA13";
+
+SYSCTL.clockTreeEn = true;
+
+TIMER1.$name       = "TIMER_USER";
+TIMER1.timerMode   = "PERIODIC";
+TIMER1.timerClkDiv = 8;
+TIMER1.interrupts  = ["ZERO"];
+TIMER1.timerPeriod = "5ms";
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+GPIO1.associatedPins[0].pin.$suggestSolution = "PA0";
+Board.peripheral.$suggestSolution            = "DEBUGSS";
+Board.peripheral.swclkPin.$suggestSolution   = "PA20";
+Board.peripheral.swdioPin.$suggestSolution   = "PA19";
+TIMER1.peripheral.$suggestSolution           = "TIMG0";

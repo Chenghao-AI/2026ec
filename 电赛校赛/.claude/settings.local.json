@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/c/Users/24307/Desktop/电赛校赛/屏幕上手/screen_test/Core/Src/**)",
+      "Bash(grep -v \"//\\\\|/\\\\*\")",
+      "Bash(ls \"c:/Users/24307/.claude/projects/c--Users-24307-Desktop-----/memory/MEMORY.md\" 2>/dev/null && echo \"EXISTS\" || echo \"MISSING\")",
+      "Read(//c/Users/24307/.claude/projects/c--Users-24307-Desktop-----/memory/**)"
+    ]
+  }
+}

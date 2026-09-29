@@ -1,0 +1,103 @@
+# ============================================================
+# 电赛 (ec) 工程 .gitignore
+# 原则：只保留源码 / 设计源 / 文档 / 手册 / 笔记；
+#       排除可重新生成的构建产物、仿真输出、安装包与第三方 SDK 压缩包。
+# ============================================================
+
+# ---------- 操作系统 / 编辑器垃圾 ----------
+Thumbs.db
+desktop.ini
+.DS_Store
+__MACOSX/
+**/__MACOSX/
+._*
+*.tmp
+*.bak
+*.swp
+
+# ---------- 第三方软件安装包（体积大，可另行下载）----------
+准备资料/SetupSTM32CubeMX-6.18.0-Win-x86_64/
+
+# ---------- 大型第三方 SDK / 例程压缩包（可另行下载）----------
+电赛校赛/模块说明/屏幕/LT7580参考资料/LT7580 SDK开发包/LT7580_SDK-20260227.rar
+电赛国赛/赛方芯片/模块手册/液晶 OLED屏/EVM_MSPM0G3507&STM32F407_Software&Examples.rar
+
+# ---------- PSpice / OrCAD 仿真输出 ----------
+# PSpiceFiles 目录为仿真结果（.dat/.out/.cir/.net 等），可由原理图重新仿真生成
+*-PSpiceFiles/
+**/*-PSpiceFiles/
+*.dat
+*.sim
+*.cir
+*.prb
+*.mrk
+*.als
+*.net
+*.1OP
+*.mif
+libbackup/
+
+# ---------- Xilinx Vivado 构建产物 ----------
+.Xil/
+**/.Xil/
+*.cache/
+*.runs/
+*.hw/
+*.sim/
+*.gen/
+*.ip_user_files/
+*.jou
+*.log
+*.str
+*.debug
+*.pb
+webtalk*
+vivado*.bak
+.Xil
+vivado_pid*
+*.wdb
+*.wpc
+*.wcfg.bak
+
+# ---------- sbt / Scala ----------
+target/
+**/target/
+project/target/
+project/project/target/
+.bsp/
+.metals/
+test_run_dir/
+
+# ---------- CCS / Keil / 嵌入式编译输出 ----------
+Debug/
+Release/
+DebugConfig/
+Listings/
+Objects/
+RTE/
+*.o
+*.obj
+*.d
+*.crf
+*.iex
+*.axf
+*.lnp
+*.build_log.htm
+*.sct
+*.dep
+*.uvguix.*
+*.uvopt
+*.uvoptx
+*.scvd
+*.map
+JLinkLog.txt
+*.scvd
+
+# ---------- clangd / 语言服务器缓存 ----------
+.cache/
+**/.cache/
+.clangd/
+**/.clangd/
+
+# ---------- 临时分析文件 ----------
+temp_pdf_check.txt

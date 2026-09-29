@@ -1,0 +1,8 @@
+STATUS: PSpice Schematics to Capture translator (16.2.0.p001)
+STATUS:  
+STATUS: Translator started at Monday, August 29, 2011 09:27:51
+STATUS: C:\Cadence\SPB_16.2\tools\Capture\sch2cap -f "C:\Users\a0867324\Desktop\Apps_Support\INA282 - Forum(Eaton) - 082511\ina282_pspice_model\INA282.lib" -o "C:\Users\a0867324\Desktop\Apps_Support\INA282 - Forum(Eaton) - 082511\ina282_pspice_model\INA282.olb" -i C:\Cadence\SPB_16.2\tools\PSpice\PSpice.ini
+   INFO: Using existing library 'C:\Cadence\SPB_16.2\tools\Capture\Library\PSpice\modeled.etc'.
+   INFO: Created new library 'C:\Users\a0867324\Desktop\Apps_Support\INA282 - Forum(Eaton) - 082511\ina282_pspice_model\INA282.olb'.
+STATUS: Translator stopped at Monday, August 29, 2011 09:27:51
+STATUS: 0 Error messages, 0 Warning messages

@@ -1,0 +1,177 @@
+(ExpressProject "LM337_N_TRANS"
+  (ProjectVersion "19981106")
+  (SoftwareVersion "23.1-2024 S001-[08/20/26]")
+  (ProjectType "Analog or A/D Mixed Mode")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File ".\lm337_n_trans.olb"
+        (Type "Schematic Library")
+        (DisplayName ".\lm337_n_trans.olb")))
+    (NoModify)
+    (File ".\lm337_n_trans.DSN"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (RootChangedForceReNetlist "x")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE")
+    (DOCKED "TRUE")
+    (DOCKING_POSITION "59420"))
+  (Folder "Layout")
+  (Folder "Outputs"
+    (File ".\lm337_n_trans-pspicefiles\lm337_n_startup\lm337_n_startup.net"
+      (Type "Report")))
+  (Folder "PSpice Resources"
+    (Folder "Simulation Profiles"
+      (ActiveProfile
+         ".\lm337_n_trans-pspicefiles\lm337_n_startup\lm337_n_startup.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\lm337_n_trans-pspicefiles\lm337_n_startup\lm337_n_startup.sim"
+        (DisplayName "LM337_N_STARTUP-LM337_N_STARTUP")
+        (Type "PSpice Profile")))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User))
+    (Folder "Model Libraries"
+      (Sort User)
+      (File ".\lm337_n_trans.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\lm337_n_trans.lib"))))
+  (DefaultLibraryBrowseDirectory "library\PSpice")
+  (PartMRUSelector
+    (IPULSE
+      (FullPartName "IPULSE.Normal")
+      (LibraryName
+         "C:\CADENCE\PSPICETI\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName
+         "C:\CADENCE\PSPICETI\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (C
+      (FullPartName "C.Normal")
+      (LibraryName
+         "C:\CADENCE\PSPICETI\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (LM337_N_TRANS
+      (FullPartName "LM337_N_TRANS.Normal")
+      (LibraryName
+         "D:\WEBENCH\LDO\ACTIVE\LM337-N\ACTIVE_WORK_KARMIC\PSPICE\LM337-N_PSPICE_TRANS\LM337_N_TRANS.OLB")
+      (DeviceIndex "0"))
+    (0
+      (LibraryName "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (PORTLEFT-L
+      (LibraryName "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (ETABLE
+      (FullPartName "ETABLE.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\DEMO\ABM.OLB")
+      (DeviceIndex "0"))
+    (H
+      (FullPartName "H.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\DEMO\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (IDC
+      (FullPartName "IDC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\DEMO\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (VPULSE
+      (FullPartName "VPULSE.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\DEMO\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (S
+      (FullPartName "S.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\DEMO\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (F
+      (FullPartName "F.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\DEMO\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (TLV70717_TRANS
+      (FullPartName "TLV70717_TRANS.Normal")
+      (LibraryName
+         "D:\LDO\TLV70717\ACTIVE_WORK_KARMIC\PSPICE\TLV70717_PSPICE_TRANS\TLV70717_TRANS.OLB")
+      (DeviceIndex "0"))
+    (TLV707335_TRANS
+      (FullPartName "TLV707335_TRANS.Normal")
+      (LibraryName
+         "E:\WEBENCH_DESIGN\TLV707335\ACTIVE_WORK_KARMIC\PSPICE\TLV707335_PSPICE_TRANS\TLV707335_TRANS.OLB")
+      (DeviceIndex "0"))
+    (VDC
+      (FullPartName "VDC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (BUF_ABM
+      (FullPartName "BUF_ABM.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\DIG_ABM.OLB")
+      (DeviceIndex "0"))
+    (D_D1
+      (FullPartName "D_D1.Normal")
+      (LibraryName "E:\D DRIVE\INTERNALLIBRARIES\SB0204_DIODES\DIODES.OLB")
+      (DeviceIndex "0"))
+    (ABM
+      (FullPartName "ABM.Normal")
+      (LibraryName "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ABM.OLB")
+      (DeviceIndex "0"))
+    (TPS79301_TRANS
+      (FullPartName "TPS79301_TRANS.Normal")
+      (LibraryName
+         "D:\LDO\TPS79301\ACTIVE_WORK_KARMIC\PSPICE\TPS79301_PSPICE_TRANS\TPS79301_TRANS.OLB")
+      (DeviceIndex "0"))
+    (PARAM
+      (FullPartName "PARAM.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.0\TOOLS\CAPTURE\LIBRARY\PSPICE\SPECIAL.OLB")
+      (DeviceIndex "0"))
+    (COMPHYS_BASIC_GEN
+      (FullPartName "COMPHYS_BASIC_GEN.Normal")
+      (LibraryName
+         "C:\PSPICE_SUBBLK_LIB_DS\PSPICE_SUBBLK_LIB\PSPICE_SUBBLK_LIB\SB02_SUBBLOCKBASIC\SB0102_COMPARATORS\COMPARATOR_GEN.OLB")
+      (DeviceIndex "0"))
+    (ABM2
+      (FullPartName "ABM2.Normal")
+      (LibraryName "C:\CADENCE\SPB_16.0\TOOLS\CAPTURE\LIBRARY\PSPICE\ABM.OLB")
+      (DeviceIndex "0"))
+    (ABM1
+      (FullPartName "ABM1.Normal")
+      (LibraryName "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\ABM.OLB")
+      (DeviceIndex "0"))
+    (L
+      (FullPartName "L.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.0\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0")))
+  (MPSSessionName "24307")
+  (LastUsedLibraryBrowseDirectory
+     "D:\Webench\LDO\ACTIVE\LM337-N\Active_Work_KarMic\PSPICE\LM337-N_PSPICE_TRANS")
+  (GlobalState
+    (FileView
+      (Path "Outputs")
+      (Select "Design Resources"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 0 0 0 200 0 229"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 888 28 700")
+        (Scroll "236 33")
+        (Zoom "144")
+        (Occurrence "/"))
+      (Path "C:\USERS\24307\DESKTOP\PROJECT_2024\LM337\LM337_N_TRANS.DSN")
+      (Schematic "LM337_N_STARTUP")
+      (Page "PAGE1")))
+  (Folder "Logs"))

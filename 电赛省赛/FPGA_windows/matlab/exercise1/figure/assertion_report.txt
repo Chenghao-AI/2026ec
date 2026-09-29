@@ -1,0 +1,150 @@
+AD9764 AM/FM 数值验收报告 (扩展版)
+================================================================
+采样率 F_DAC      : 125000000 Hz
+载波 F_CARRIER    : 15.000 MHz
+调制波 F_MOD      : 10.0 kHz
+DAC 零偏 ZERO     : 8192 LSB
+1 Vpp ≈ LSB       : 2730 LSB
+场景数            : 8
+每场景样本        : 4096
+
+总体样本统计
+----------------------------------------------------------------
+CHA 总数 / range  : 32768 / [7919, 8465]
+CHB 总数 / range  : 32768 / [7919, 8464]
+
+默认场景 (S1) FFT
+----------------------------------------------------------------
+15 MHz bin 幅度                : 210896.0
+14.990 / 15.010 MHz bins       : 195385.4 / 210896.0
+CHB 平均瞬时频率 (ZC/FFT/中位): 15.2774 / 15.0394 / 15.1584 MHz
+CHA max|Δ|                     : 314
+CHB max|Δ|                     : 458
+
+逐场景摆幅
+----------------------------------------------------------------
+Scenario         CHA pkpk         CHB pkpk       
+default          373              545            
+vpp_500mV        546              545            
+vpp_1000mV       546              545            
+am_0.6           373              545            
+am_0.9           546              545            
+fm_4.0kHz        546              545            
+fm_5.0kHz        373              545            
+extreme_full     546              545            
+
+断言列表
+----------------------------------------------------------------
+[PASS] CHA 14-bit 合法
+[PASS] CHB 14-bit 合法
+[PASS] 总样本数 = 8 × 4096
+[PASS] [default] CHA 14-bit 合法
+[PASS] [default] CHB 14-bit 合法
+[PASS] [vpp_500mV] CHA 14-bit 合法
+[PASS] [vpp_500mV] CHB 14-bit 合法
+[PASS] [vpp_1000mV] CHA 14-bit 合法
+[PASS] [vpp_1000mV] CHB 14-bit 合法
+[PASS] [am_0.6] CHA 14-bit 合法
+[PASS] [am_0.6] CHB 14-bit 合法
+[PASS] [am_0.9] CHA 14-bit 合法
+[PASS] [am_0.9] CHB 14-bit 合法
+[PASS] [fm_4.0kHz] CHA 14-bit 合法
+[PASS] [fm_4.0kHz] CHB 14-bit 合法
+[PASS] [fm_5.0kHz] CHA 14-bit 合法
+[PASS] [fm_5.0kHz] CHB 14-bit 合法
+[PASS] [extreme_full] CHA 14-bit 合法
+[PASS] [extreme_full] CHB 14-bit 合法
+[PASS] [default] CHA mean ≈ 8192 ± 500 (got 8196.1)
+[PASS] [default] CHB mean ≈ 8192 ± 500 (got 8192.7)
+[PASS] [default] CHA AC 摆幅 ≥ 100 LSB (got 373)
+[PASS] [default] CHB AC 摆幅 ≥ 100 LSB (got 545)
+[PASS] [default] CHA 15 MHz bin > 100 (got 210896.0)
+[PASS] [default] CHA 载波 bin 显著主导 (210896 > 2 × 邻域均值 90151)
+[PASS] [default] CHB inst freq ≈ 15 MHz ± 1 MHz (ZC=15.277, FFT=15.039, med=15.158)
+[PASS] [default] CHA 无毛刺 max|Δ| < 1500 (got 314)
+[PASS] [default] CHB 无毛刺 max|Δ| < 1500 (got 458)
+[PASS] [vpp_500mV] CHA 摆幅 ≥ [default] (546 ≥ 373)
+[PASS] [am_0.6] CHA 摆幅 ≥ [default] (373 ≥ 373)
+[PASS] [am_0.9] CHA 摆幅 ≥ [am_0.6] (546 ≥ 373)
+[PASS] [default] CHB 15 MHz 载波 bin > 1000 (got 373493)
+[PASS] [vpp_500mV] CHB 15 MHz 载波 bin > 1000 (got 318195)
+[PASS] [vpp_1000mV] CHB 15 MHz 载波 bin > 1000 (got 295114)
+[PASS] [am_0.6] CHB 15 MHz 载波 bin > 1000 (got 377261)
+[PASS] [am_0.9] CHB 15 MHz 载波 bin > 1000 (got 311257)
+[PASS] [fm_4.0kHz] CHB 15 MHz 载波 bin > 1000 (got 300719)
+[PASS] [fm_5.0kHz] CHB 15 MHz 载波 bin > 1000 (got 381361)
+[PASS] [extreme_full] CHB 15 MHz 载波 bin > 1000 (got 298031)
+[PASS] [default] CHA DC 中点 8000-8400 (got 8196.1)
+[PASS] [default] CHB DC 中点 8000-8400 (got 8192.7)
+[PASS] [vpp_500mV] CHA DC 中点 8000-8400 (got 8198.3)
+[PASS] [vpp_500mV] CHB DC 中点 8000-8400 (got 8196.0)
+[PASS] [vpp_1000mV] CHA DC 中点 8000-8400 (got 8199.6)
+[PASS] [vpp_1000mV] CHB DC 中点 8000-8400 (got 8195.5)
+[PASS] [am_0.6] CHA DC 中点 8000-8400 (got 8196.2)
+[PASS] [am_0.6] CHB DC 中点 8000-8400 (got 8192.1)
+[PASS] [am_0.9] CHA DC 中点 8000-8400 (got 8198.7)
+[PASS] [am_0.9] CHB DC 中点 8000-8400 (got 8195.4)
+[PASS] [fm_4.0kHz] CHA DC 中点 8000-8400 (got 8199.3)
+[PASS] [fm_4.0kHz] CHB DC 中点 8000-8400 (got 8195.4)
+[PASS] [fm_5.0kHz] CHA DC 中点 8000-8400 (got 8196.3)
+[PASS] [fm_5.0kHz] CHB DC 中点 8000-8400 (got 8192.0)
+[PASS] [extreme_full] CHA DC 中点 8000-8400 (got 8199.5)
+[PASS] [extreme_full] CHB DC 中点 8000-8400 (got 8195.4)
+[PASS] [default] AM 包络对称 (top/bot=0.952)
+[PASS] [vpp_500mV] AM 包络对称 (top/bot=0.955)
+[PASS] [vpp_1000mV] AM 包络对称 (top/bot=0.946)
+[PASS] [am_0.6] AM 包络对称 (top/bot=0.950)
+[PASS] [am_0.9] AM 包络对称 (top/bot=0.952)
+[PASS] [fm_4.0kHz] FM 瞬时频率 ≈ 15 MHz (got 16.861 MHz)
+[PASS] [fm_5.0kHz] FM 瞬时频率 ≈ 15 MHz (got 15.121 MHz)
+[PASS] [extreme_full] FM 瞬时频率 ≈ 15 MHz (got 15.274 MHz)
+[PASS] [default] CHA 载波 +100kHz 旁瓣衰减 (-36.1 dB)
+[PASS] [vpp_500mV] CHA 载波 +100kHz 旁瓣衰减 (-34.4 dB)
+[PASS] [vpp_1000mV] CHA 载波 +100kHz 旁瓣衰减 (-37.3 dB)
+[PASS] [am_0.6] CHA 载波 +100kHz 旁瓣衰减 (-36.1 dB)
+[PASS] [am_0.9] CHA 载波 +100kHz 旁瓣衰减 (-29.6 dB)
+[PASS] [fm_4.0kHz] CHA 载波 +100kHz 旁瓣衰减 (-31.3 dB)
+[PASS] [fm_5.0kHz] CHA 载波 +100kHz 旁瓣衰减 (-36.1 dB)
+[PASS] [extreme_full] CHA 载波 +100kHz 旁瓣衰减 (-35.3 dB)
+[PASS] [default] CHA 短窗 DC 稳定 (std=0.99 LSB)
+[PASS] [vpp_500mV] CHA 短窗 DC 稳定 (std=2.58 LSB)
+[PASS] [vpp_1000mV] CHA 短窗 DC 稳定 (std=2.58 LSB)
+[PASS] [am_0.6] CHA 短窗 DC 稳定 (std=0.86 LSB)
+[PASS] [am_0.9] CHA 短窗 DC 稳定 (std=2.57 LSB)
+[PASS] [fm_4.0kHz] CHA 短窗 DC 稳定 (std=2.63 LSB)
+[PASS] [fm_5.0kHz] CHA 短窗 DC 稳定 (std=0.88 LSB)
+[PASS] [extreme_full] CHA 短窗 DC 稳定 (std=2.36 LSB)
+[PASS] [default] CHB 短窗 DC 稳定 (std=7.08 LSB)
+[PASS] [vpp_500mV] CHB 短窗 DC 稳定 (std=5.33 LSB)
+[PASS] [vpp_1000mV] CHB 短窗 DC 稳定 (std=6.29 LSB)
+[PASS] [am_0.6] CHB 短窗 DC 稳定 (std=7.35 LSB)
+[PASS] [am_0.9] CHB 短窗 DC 稳定 (std=6.32 LSB)
+[PASS] [fm_4.0kHz] CHB 短窗 DC 稳定 (std=6.24 LSB)
+[PASS] [fm_5.0kHz] CHB 短窗 DC 稳定 (std=7.13 LSB)
+[PASS] [extreme_full] CHB 短窗 DC 稳定 (std=6.66 LSB)
+[PASS] [default] CHA 毛刺 max|Δ| < 1000 (got 314)
+[PASS] [default] CHB 毛刺 max|Δ| < 1000 (got 458)
+[PASS] [vpp_500mV] CHA 毛刺 max|Δ| < 1000 (got 546)
+[PASS] [vpp_500mV] CHB 毛刺 max|Δ| < 1000 (got 458)
+[PASS] [vpp_1000mV] CHA 毛刺 max|Δ| < 1000 (got 546)
+[PASS] [vpp_1000mV] CHB 毛刺 max|Δ| < 1000 (got 458)
+[PASS] [am_0.6] CHA 毛刺 max|Δ| < 1000 (got 314)
+[PASS] [am_0.6] CHB 毛刺 max|Δ| < 1000 (got 458)
+[PASS] [am_0.9] CHA 毛刺 max|Δ| < 1000 (got 546)
+[PASS] [am_0.9] CHB 毛刺 max|Δ| < 1000 (got 458)
+[PASS] [fm_4.0kHz] CHA 毛刺 max|Δ| < 1000 (got 546)
+[PASS] [fm_4.0kHz] CHB 毛刺 max|Δ| < 1000 (got 458)
+[PASS] [fm_5.0kHz] CHA 毛刺 max|Δ| < 1000 (got 314)
+[PASS] [fm_5.0kHz] CHB 毛刺 max|Δ| < 1000 (got 458)
+[PASS] [extreme_full] CHA 毛刺 max|Δ| < 1000 (got 546)
+[PASS] [extreme_full] CHB 毛刺 max|Δ| < 1000 (got 458)
+[PASS] [extreme_full] CHA 14-bit 合法
+[PASS] [extreme_full] CHB 14-bit 合法
+[PASS] [extreme_full] CHA 摆幅 ≥ 100
+[PASS] [extreme_full] CHB 摆幅 ≥ 100
+[PASS] [extreme_full] CHA 围绕中点
+[PASS] [extreme_full] CHB 围绕中点
+
+总计: PASS=109  FAIL=0
+
+OVERALL: PASS

@@ -1,0 +1,113 @@
+(ExpressProject "LM7322"
+  (ProjectVersion "19981106")
+  (SoftwareVersion "23.1-2024 S001-[08/27/26]")
+  (ProjectType "Analog or A/D Mixed Mode")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File ".\lm7322.olb"
+        (Type "Schematic Library")))
+    (NoModify)
+    (File ".\lm7322.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE")
+    (RootChangedForceReNetlist "x")
+    (DOCKED "TRUE")
+    (DOCKING_POSITION "59420"))
+  (Folder "Layout")
+  (Folder "Outputs"
+    (File ".\lm7322-pspicefiles\lm7322_ac\lm7322_ac.net"
+      (Type "Report"))
+    (File ".\lm7322-pspicefiles\lm7322_tr\lm7322_tr.net"
+      (Type "Report")))
+  (Folder "PSpice Resources"
+    (Folder "Simulation Profiles"
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\lm7322-pspicefiles\lm7322_ac\ac.sim"
+        (DisplayName "LM7322_AC-AC")
+        (Type "PSpice Profile"))
+      (ActiveProfile ".\lm7322-pspicefiles\lm7322_tr\tr.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\lm7322-pspicefiles\lm7322_tr\tr.sim"
+        (DisplayName "LM7322_TR-TR")
+        (Type "PSpice Profile")))
+    (Folder "Model Libraries"
+      (Sort User)
+      (File ".\lm7322.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\lm7322.lib")))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User)))
+  (DefaultLibraryBrowseDirectory "library\PSpice")
+  (PartMRUSelector
+    (0
+      (LibraryName "C:\CADENCE\PSPICETI\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName
+         "C:\CADENCE\PSPICETI\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (VDC
+      (FullPartName "VDC.Normal")
+      (LibraryName
+         "C:\CADENCE\PSPICETI\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (VSIN
+      (FullPartName "VSIN.Normal")
+      (LibraryName
+         "C:\CADENCE\PSPICETI\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (LM7321
+      (FullPartName "LM7321.Normal")
+      (LibraryName "C:\CDS_SPB_HOME\CDSSETUP\PSPTILIBDIR\LM7321.OLB")
+      (DeviceIndex "0"))
+    (TLV9362
+      (FullPartName "TLV9362.Normal")
+      (LibraryName "C:\CDS_SPB_HOME\CDSSETUP\PSPTILIBDIR\TLV9362.OLB")
+      (DeviceIndex "0"))
+    (C
+      (FullPartName "C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.0\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (LM7322
+      (FullPartName "LM7322.Normal")
+      (LibraryName
+         "C:\ELAB_MODEL_WS\ELAB_MODEL_DS\PART_NUMBERS\LM7322\RELEASE_TI\PSPICE\LM7322_PSPICE_AIO\LM7322.OLB")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources"
+         "C:\Users\24307\Desktop\project_2024\LM7321\lm7322.dsn")
+      (Path "Design Resources"
+         "C:\Users\24307\Desktop\project_2024\LM7321\lm7322.dsn" "LM7322_TR")
+      (Path "Design Resources"
+         "C:\Users\24307\Desktop\project_2024\LM7321\lm7322.dsn" "LM7322_AC")
+      (Path "Design Resources" "Library")
+      (Path "Outputs")
+      (Select "Design Resources"
+         "C:\Users\24307\Desktop\project_2024\LM7321\lm7322.dsn" "LM7322_TR"
+         "PAGE1"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 0 0 0 200 0 573"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 856 28 700")
+        (Scroll "47 83")
+        (Zoom "117")
+        (Occurrence "/"))
+      (Path "C:\USERS\24307\DESKTOP\PROJECT_2024\LM7321\LM7322.DSN")
+      (Schematic "LM7322_TR")
+      (Page "PAGE1")))
+  (Folder "Logs")
+  (MPSSessionName "24307"))

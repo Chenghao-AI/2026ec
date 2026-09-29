@@ -1,0 +1,77 @@
+(ExpressProject "UCC27211"
+  (ProjectVersion "19981106")
+  (SoftwareVersion "23.1-2024 S001-[08/19/26]")
+  (ProjectType "Analog or A/D Mixed Mode")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (NoModify)
+    (File ".\ucc27211.DSN"
+      (Type "Schematic Design")
+      (DisplayName ".\ucc27211.DSN"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE")
+    (DOCKED "TRUE")
+    (DOCKING_POSITION "59420"))
+  (Folder "Layout")
+  (Folder "Outputs"
+    (File ".\ucc27211-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net"
+      (Type "Report")
+      (DisplayName ".\ucc27211-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net")))
+  (Folder "PSpice Resources"
+    (Folder "Simulation Profiles"
+      (ActiveProfile ".\ucc27211-pspicefiles\schematic1\trans.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\ucc27211-PSpiceFiles\SCHEMATIC1\trans.sim"
+        (DisplayName "SCHEMATIC1-trans")
+        (Type "PSpice Profile")))
+    (Folder "Model Libraries"
+      (Sort User)
+      (File ".\ucc27211.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\ucc27211.lib")))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User)))
+  (DefaultLibraryBrowseDirectory "library\PSpice")
+  (PartMRUSelector
+    (UCC27211
+      (FullPartName "UCC27211.Normal")
+      (LibraryName
+         "C:\ELAB_MODEL_WS\ELAB_MODEL_DS\PART_NUMBERS\UCC27211\RELEASE_TI\PSPICE\UCC27211_PSPICE_TRANS\UCC27211.OLB")
+      (DeviceIndex "0"))
+    (UCC27210
+      (FullPartName "UCC27210.Normal")
+      (LibraryName
+         "C:\ELAB_MODEL_WS\ELAB_MODEL_DS\PART_NUMBERS\UCC27210\RELEASE_TI\PSPICE\UCC27210_PSPICE_TRANS\UCC27210.OLB")
+      (DeviceIndex "0")))
+  (LastUsedLibraryBrowseDirectory
+     "C:\ELAB_MODEL_WS\ELAB_MODEL_DS\Part_Numbers\UCC27211\Release_TI\PSPICE\UCC27211_PSPICE_TRANS")
+  (MPSSessionName "24307")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\ucc27211.DSN")
+      (Path "Design Resources" ".\ucc27211.DSN" "SCHEMATIC1")
+      (Path "Outputs")
+      (Path "PSpice Resources")
+      (Path "PSpice Resources" "Model Libraries")
+      (Select "Design Resources"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -4 -30 0 367 0 654"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 888 28 700")
+        (Scroll "0 0")
+        (Zoom "100")
+        (Occurrence "/"))
+      (Path "C:\USERS\24307\DESKTOP\PROJECT_2024\UCC27211\UCC27211.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1")))
+  (Folder "Logs"))

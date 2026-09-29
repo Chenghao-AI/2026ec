@@ -1,0 +1,146 @@
+(ExpressProject "LMR36520A_TRANS"
+  (ProjectVersion "19981106")
+  (SoftwareVersion "23.1-2024 S001-[08/19/26]")
+  (ProjectType "Analog or A/D Mixed Mode")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File ".\lmr36520adda_trans.olb"
+        (Type "Schematic Library")
+        (DisplayName ".\lmr36520adda_trans.olb")))
+    (NoModify)
+    (File ".\lmr36520a_trans.DSN"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (ANNOTATE_Scope "0")
+    (ANNOTATE_Mode "1")
+    (ANNOTATE_Action "1")
+    (ANNOTATE_Reset_References_to_1 "FALSE")
+    (ANNOTATE_No_Page_Number_Change "TRUE")
+    (ANNOTATE_Property_Combine "{Value}{Source Package}")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE")
+    (RootChangedForceReNetlist "x")
+    (DOCKED "TRUE")
+    (DOCKING_POSITION "59420"))
+  (Folder "Layout")
+  (Folder "Outputs")
+  (Folder "PSpice Resources"
+    (Folder "Model Libraries"
+      (File ".\lmr36520a_trans.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\lmr36520a_trans.lib"))
+      (Sort User))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User))
+    (Folder "Simulation Profiles"
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\lmr36520a_trans-pspicefiles\buck_steady_state\trans.sim"
+        (DisplayName "BUCK_STEADY_STATE-TRANS")
+        (Type "PSpice Profile"))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\lmr36520a_trans-pspicefiles\ibb_startup\trans.sim"
+        (DisplayName "IBB_STARTUP-TRANS")
+        (Type "PSpice Profile"))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\lmr36520a_trans-pspicefiles\ibb_steady_state\trans.sim"
+        (DisplayName "IBB_STEADY_STATE-TRANS")
+        (Type "PSpice Profile"))
+      (ActiveProfile ".\lmr36520a_trans-pspicefiles\buck_startup\trans.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\lmr36520a_trans-pspicefiles\buck_startup\trans.sim"
+        (DisplayName "BUCK_STARTUP-TRANS")
+        (Type "PSpice Profile"))))
+  (DefaultLibraryBrowseDirectory "library\PSpice")
+  (PartMRUSelector
+    (VDC
+      (FullPartName "VDC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (LMR36520ADDA_TRANS
+      (FullPartName "LMR36520ADDAR.Normal")
+      (LibraryName
+         "C:\ELABTRAN_WS\ELABTRANS_DS\PART_NUMBERS\LMR36520A\RELEASE\LMR36520A_PSPICE_TRANS\LMR36520ADDA_TRANS.OLB")
+      (DeviceIndex "0"))
+    (0
+      (LibraryName "C:\CADENCE\SPB_16.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName "..\..\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (C
+      (FullPartName "C.Normal")
+      (LibraryName "..\..\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (L
+      (FullPartName "L.Normal")
+      (LibraryName "..\..\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (VSTIM
+      (FullPartName "VSTIM.Normal")
+      (LibraryName "..\..\LIBRARY\PSPICE\SOURCSTM.OLB")
+      (DeviceIndex "0")))
+  (LastUsedLibraryBrowseDirectory
+     "C:\Cadence\SPB_16.2\tools\capture\library\pspice")
+  (MPSSessionName "24307")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\lmr36520a_trans.DSN")
+      (Path "Design Resources" ".\lmr36520a_trans.DSN" "BUCK_STARTUP")
+      (Path "Design Resources" ".\lmr36520a_trans.DSN" "BUCK_STEADY_STATE")
+      (Path "Design Resources" ".\lmr36520a_trans.DSN" "IBB_STARTUP")
+      (Path "Design Resources" ".\lmr36520a_trans.DSN" "IBB_STEADY_STATE")
+      (Select "Design Resources"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 0 428 0 654"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 859 28 700")
+        (Scroll "0 0")
+        (Zoom "100")
+        (Occurrence "/"))
+      (Path
+         "C:\USERS\24307\DESKTOP\PROJECT_2024\LMR36520ADDA\LMR36520A_TRANS.DSN")
+      (Schematic "BUCK_STARTUP")
+      (Page "PAGE1"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 859 28 700")
+        (Scroll "260 83")
+        (Zoom "100"))
+      (Path
+         "C:\USERS\24307\DESKTOP\PROJECT_2024\LMR36520ADDA\LMR36520A_TRANS.DSN")
+      (Schematic "BUCK_STEADY_STATE")
+      (Page "PAGE1"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 859 28 700")
+        (Scroll "49 0")
+        (Zoom "100"))
+      (Path
+         "C:\USERS\24307\DESKTOP\PROJECT_2024\LMR36520ADDA\LMR36520A_TRANS.DSN")
+      (Schematic "IBB_STARTUP")
+      (Page "PAGE1"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 859 28 700")
+        (Scroll "73 360")
+        (Zoom "50"))
+      (Path
+         "C:\USERS\24307\DESKTOP\PROJECT_2024\LMR36520ADDA\LMR36520A_TRANS.DSN")
+      (Schematic "IBB_STEADY_STATE")
+      (Page "PAGE1")))
+  (ISPCBBASICLICENSE "false")
+  (Folder "Logs"))

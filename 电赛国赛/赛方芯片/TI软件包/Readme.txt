@@ -1,0 +1,1 @@
+如需C2000Ware、CCS、MSP430Ware、Mspm0_sdk等软件，请联系教室志愿者拷贝。

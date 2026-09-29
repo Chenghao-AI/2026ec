@@ -1,0 +1,14 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Administrator\Desktop\ADF4351-模块资料\1-模块测试总结\ADF4351测试程序\ADF4351--步进100K\STM32\Project\LZE_STM32_Template.uvproj
+Project File Date:  07/28/2019
+
+<h2>Output:</h2>
+Load "C:\\Users\\Administrator\\Desktop\\ADF4351-模块资料\\1-模块测试总结\\ADF4351测试程序\\ADF4351--步进100K\\STM32\\Project\\Obj\\LZE_STM32_Template.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
